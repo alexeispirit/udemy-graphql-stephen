@@ -1,7 +1,13 @@
 const grapql = require("graphql");
 const axios = require("axios");
 const _ = require("lodash");
-const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLSchema } = grapql;
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLInt,
+  GraphQLSchema,
+  GraphQLList,
+} = grapql;
 
 const CompanyType = new GraphQLObjectType({
   name: "Company",
@@ -9,6 +15,14 @@ const CompanyType = new GraphQLObjectType({
     id: { type: GraphQLString },
     name: { type: GraphQLString },
     description: { type: GraphQLString },
+    users: {
+      type: new GraphQLList(UserType),
+      resolve(parentValue, args) {
+        return axios
+          .get(`http://localhost:3000/companies/${parentValue.id}/users`)
+          .then((res) => res.data);
+      },
+    },
   },
 });
 
