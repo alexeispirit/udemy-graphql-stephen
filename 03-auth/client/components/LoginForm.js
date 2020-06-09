@@ -14,8 +14,7 @@ class LoginForm extends Component {
   }
 
   componentWillMount(nextProps) {
-    console.log("Will mount");
-    if (this.props.data.user && nextProps.data.user) {
+    if (!this.props.data && !this.props.data.user && nextProps.data.user) {
       hashHistory.push("/dashboard");
     }
   }
