@@ -10,7 +10,7 @@ const mutation = new GraphQLObjectType({
     signup: {
       type: UserType,
       args: {
-        emaiL: { type: GraphQLString },
+        email: { type: GraphQLString },
         password: { type: GraphQLString },
       },
       resolve(parentValue, { email, password }, req) {
