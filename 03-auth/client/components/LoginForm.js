@@ -7,10 +7,14 @@ import query from "../queries/currentUser";
 
 class LoginForm extends Component {
   onSubmit({ email, password }) {
-    this.props.mutate({
-      variables: { email, password },
-      refetchQueries: [{ query }],
-    });
+    this.props
+      .mutate({
+        variables: { email, password },
+        refetchQueries: [{ query }],
+      })
+      .catch((res) => {
+        const errors = res.graphQLErrors.map((err) => err.message);
+      });
   }
 
   render() {
